@@ -2,6 +2,7 @@ const {body, validationResult} = require("express-validator");
 const Author = require("../models/author");
 const Book = require("../models/book")
 const asyncHandler = require("express-async-handler");
+const debug = require("debug")("author")
 
 exports.author_list = asyncHandler(async (req,res,next) => {
     // res.send("NOT IMPLEMENTED: Author list");
@@ -119,9 +120,10 @@ exports.author_update_get = asyncHandler(async (req, res, next) => {
     // res.send("NOT IMPLEMENTED: Author update GET")
     const author = await Author.findById(req.params.id).exec();
     if(author===null){
+        debug(`id not found on update: ${req.params.id}`).exec()
         const err = new Error("Author not found.");
         err.status(404);
-        next(err);
+        return next(err);
     }
     res.render("author_form", {
         title: "Update Author",
