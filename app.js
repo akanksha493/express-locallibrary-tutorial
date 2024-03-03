@@ -1,4 +1,4 @@
-require('dotenv').config();
+// require('dotenv').config();
 var createError = require('http-errors');
 var express = require('express');
 var path = require('path');
@@ -12,7 +12,7 @@ const catalogRouter = require("./routes/catalog");
 var app = express();
 const mongoose = require("mongoose");
 mongoose.set("strictQuery", false);
-const dev_db_url = "mongodb+srv://your_user_name:your_password@cluster0.phb0zl3.mongodb.net/local_library?retryWrites=true&w=majority";
+const dev_db_url = "mongodb+srv://admin:admit03@cluster0.phb0zl3.mongodb.net/local_library?retryWrites=true&w=majority";
 const mongoDB = process.env.MONGODB_URI || dev_db_url;
 
 main().catch((err) => console.log(err));
