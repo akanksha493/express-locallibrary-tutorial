@@ -1,4 +1,4 @@
-const dotenv = require('dotenv').config();
+require('dotenv').config();
 var createError = require('http-errors');
 var express = require('express');
 var path = require('path');
@@ -20,12 +20,10 @@ const limiter = RateLimit({
 var app = express();
 const mongoose = require("mongoose");
 mongoose.set("strictQuery", false);
-const dev_db_url = "mongodb+srv://your_user_name:your_password@cluster0.phb0zl3.mongodb.net/local_library?retryWrites=true&w=majority";
-const mongoDB = process.env.MONGODB_URI || dev_db_url;
 
-main().catch((err) => console.log(err));
+main().then(()=> console.log("Database Connected")).catch((err) => console.log(err));
 async function main(){
-  await mongoose.connect(mongoDB);
+  await mongoose.connect(process.env.MONGODB_URI);
 }
 
 // view engine setups
